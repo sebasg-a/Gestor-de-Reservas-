@@ -93,4 +93,40 @@ class ReservationControllerIT {
         assertEquals(HttpStatus.CONFLICT, ex.getStatusCode());
         assertTrue(ex.getResponseBodyAsString().contains("CONFLICT"));
     }
+    @Test
+void shouldAllowSameSlotAfterCancel() {
+    Map<String, Object> body = Map.of(
+            "userId", userId,
+            "resourceId", resourceId,
+            "startTime", Instant.parse("2026-01-05T10:00:00Z").toString(),
+            "endTime", Instant.parse("2026-01-05T11:00:00Z").toString(),
+            "notes", "one"
+    );
+
+    String created = client.post()
+            .uri("/api/reservations")
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(body)
+            .retrieve()
+            .body(String.class);
+
+    assertNotNull(created);
+
+    // asume id 1 en base limpia
+    client.patch()
+            .uri("/api/reservations/1/cancel")
+            .retrieve()
+            .toBodilessEntity();
+
+    // debe permitir de nuevo
+    String created2 = client.post()
+            .uri("/api/reservations")
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(body)
+            .retrieve()
+            .body(String.class);
+
+    assertNotNull(created2);
+}
+
 }
