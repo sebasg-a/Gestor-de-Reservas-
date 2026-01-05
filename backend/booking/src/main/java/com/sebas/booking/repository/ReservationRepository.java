@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.Instant;
+import java.util.List;
 
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
 
@@ -21,4 +22,16 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
                           @Param("status") ReservationStatus status,
                           @Param("newStart") Instant newStart,
                           @Param("newEnd") Instant newEnd);
+
+    @Query("""
+            select r from Reservation r
+            where r.resource.id = :resourceId
+              and r.status = :status
+              and r.startTime >= :dayStart
+              and r.startTime < :dayEnd
+            """)
+    List<Reservation> findActiveForDay(@Param("resourceId") Long resourceId,
+                                       @Param("status") ReservationStatus status,
+                                       @Param("dayStart") Instant dayStart,
+                                       @Param("dayEnd") Instant dayEnd);
 }
