@@ -1,0 +1,82 @@
+.container {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 24px;
+  font-family: system-ui, Arial, sans-serif;
+}
+
+.card {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 16px 0;
+}
+
+.row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: end;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 160px;
+}
+
+input {
+  padding: 8px 10px;
+  border: 1px solid #bbb;
+  border-radius: 8px;
+}
+
+button {
+  padding: 10px 14px;
+  border: 1px solid #333;
+  border-radius: 10px;
+  background: rgb(255, 0, 0);
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.slots {
+  margin-top: 14px;
+  display: grid;
+  gap: 10px;
+}
+
+.slot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px dashed #bbb;
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+.slotTime {
+  font-weight: 600;
+}
+
+.muted {
+  color: #666;
+}
+
+.error {
+  color: #b00020;
+}
+
+.info {
+  color: #0b5394;
+}
+
+.grow {
+  flex: 1;
+  min-width: 240px;
+}
